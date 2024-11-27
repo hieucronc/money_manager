@@ -9,19 +9,20 @@ class ApiImpl implements Api {
   Log log;
 
   List<Transaction> _data = [
-    Transaction(dateTime: "2024-10-20 12:00:00", title: "a",
+    Transaction(dateTime: "2024-03-15 15:00:00", title: "a",
         content: "aa", amount: 1000),
-    Transaction(dateTime: "2024-11-21 12:00:00", title: "b",
+    Transaction(dateTime: "2024-03-10 10:00:00", title: "b",
         content: "bb", amount: -10),
-    Transaction(dateTime: "2024-11-21 13:00:00", title: "c",
+    Transaction(dateTime: "2024-03-10 12:00:00", title: "c",
         content: "cc", amount: -20),
-    Transaction(dateTime: "2024-11-21 14:00:00", title: "d",
+    Transaction(dateTime: "2024-03-10 11:00:00", title: "d",
         content: "dd", amount: -30),
   ];
 
   ApiImpl(this.log) {
     _data.sort((a,b) => b.dateTime.compareTo(a.dateTime));
   }
+
   Future<void> delay() async{
     await Future.delayed(Duration(seconds: 1));
   }
@@ -75,11 +76,12 @@ class ApiImpl implements Api {
     await delay();
     Set<String> r = {};
     for (int i = 0; i < _data.length; i++) {
-      var tmp = _data[i].dateTime.substring(0,7) + "-01 00:00:00";
+      var tmp = _data[i].dateTime.substring(0, 7);
       r.add(tmp);
     }
     return r.toList();
   }
+
 
   @override
   Future<double> getTotal() async {
@@ -96,11 +98,13 @@ class ApiImpl implements Api {
     await delay();
     List<Transaction> r = [];
     for (int i = 0; i < _data.length; i++) {
-      var tmp = _data[i].dateTime.substring(0,7);
-      if (month.startsWith(_data[i].dateTime))
+      var tmp = _data[i].dateTime.substring(0, 7); // Lấy "yyyy-MM"
+      if (tmp == month) { // So sánh chính xác "yyyy-MM"
         r.add(_data[i]);
+      }
     }
     return r;
   }
 
 }
+
