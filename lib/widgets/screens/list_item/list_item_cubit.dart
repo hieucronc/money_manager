@@ -31,4 +31,13 @@ class ListItemCubit extends Cubit<ListItemState> {
       emit(state.copyWith(loadStatus: LoadStatus.Error));
     }
   }
+  void deleteItem(String dateTime) async {
+    emit(state.copyWith(loadStatus: LoadStatus.Loading));
+    try {
+    await api.deleteTransaction(dateTime);
+    await loadData(state.selectedMonth);
+    } catch (ex) {
+      emit(state.copyWith(loadStatus: LoadStatus.Error));
+    }
+  }
 }

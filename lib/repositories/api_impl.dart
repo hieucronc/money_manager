@@ -11,9 +11,9 @@ class ApiImpl implements Api {
   List<Transaction> _data = [
     Transaction(dateTime: "2024-03-15 15:00:00", title: "a",
         content: "aa", amount: 1000),
-    Transaction(dateTime: "2024-03-10 10:00:00", title: "b",
+    Transaction(dateTime: "2024-02-10 10:00:00", title: "b",
         content: "bb", amount: -10),
-    Transaction(dateTime: "2024-03-10 12:00:00", title: "c",
+    Transaction(dateTime: "2024-04-10 12:00:00", title: "c",
         content: "cc", amount: -20),
     Transaction(dateTime: "2024-03-10 11:00:00", title: "d",
         content: "dd", amount: -30),

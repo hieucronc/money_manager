@@ -55,34 +55,64 @@ class ListItemPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<ListItemCubit, ListItemState>(
       builder: (context, state) {
+        var cubit = context.read<ListItemCubit>();
         return Column(
           children: [
-        Row(children: [
-          Expanded(child: Text("${state.total}")),
-          state.months.isNotEmpty &&
-                  state.selectedMonth >= 0 &&
-                  state.selectedMonth < state.months.length
-              ? Text(state.months[state.selectedMonth])
-              : Container()
-        ]),
-        Expanded(
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              return Card(
-                child: ListTile(
-                  title: Row(
-                      children: [
-                    Expanded(child: Text(state.trans[index].title)),
-                    Text("${state.trans[index].amount}")
-                  ]
+            Container(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 0),
+              child: Row(children: [
+                Expanded(child: Text("${state.total}")),
+                state.months.isNotEmpty &&
+                        state.selectedMonth == 0 &&
+                        state.selectedMonth < state.months.length
+                    ? Container()
+                    : IconButton(
+                        onPressed: () {
+                          cubit.loadData(state.selectedMonth - 1);
+                        },
+                        icon: Icon(Icons.navigate_before)),
+                state.months.isNotEmpty &&
+                        state.selectedMonth >= 0 &&
+                        state.selectedMonth < state.months.length
+                    ? Text(state.months[state.selectedMonth])
+                    : Container(),
+                state.months.isNotEmpty &&
+                        state.selectedMonth >= 0 &&
+                        state.selectedMonth == state.months.length - 1
+                    ? Container()
+                    : IconButton(
+                        onPressed: () {
+                          cubit.loadData(state.selectedMonth + 1);
+                        },
+                        icon: Icon(Icons.navigate_next)),
+              ]),
+            ),
+            Expanded(
+                child: ListView.builder(
+              itemBuilder: (context, index) {
+                var item = state.trans[index];
+                return Card(
+                  margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
+                  child: ListTile(
+                    leading: item.amount > 0
+                        ? Icon(Icons.add, color: Colors.green)
+                        : Icon(Icons.remove, color: Colors.red),
+                    title: Row(children: [
+                      Expanded(child: Text(item.title)),
+                      Text("${item.amount}")
+                    ]),
+                    subtitle: Text(item.content),
+                    trailing: IconButton(
+                      icon: Icon(Icons.delete),
+                      onPressed: () {
+                        cubit.deleteItem(item.dateTime);
+                      },
+                    ),
                   ),
-                  subtitle: Text(state.trans[index].content),
-                ),
-              );
-            },
-            itemCount: state.trans.length,
-          )
-        )
+                );
+              },
+              itemCount: state.trans.length,
+            ))
           ],
         );
       },
