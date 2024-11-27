@@ -1,3 +1,1 @@
-enum DrawerItem {
-  Home, Setting
-}
+enum DrawerItem { Home, Setting }
