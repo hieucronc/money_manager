@@ -24,7 +24,7 @@ class ApiImpl implements Api {
   }
 
   Future<void> delay() async{
-    await Future.delayed(Duration(seconds: 1));
+    await Future.delayed(Duration(milliseconds: 100));
   }
 
 

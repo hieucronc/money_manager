@@ -7,6 +7,7 @@ class ListItemState {
   final int selectedMonth;
   final double total;
   final LoadStatus loadStatus;
+  final ScreenSize screenSize;
 
   const ListItemState.init({
     this.trans = const [],
@@ -15,6 +16,7 @@ class ListItemState {
     this.selectedMonth = -1,
     this.total = 0,
     this.loadStatus = LoadStatus.Init,
+    this.screenSize = ScreenSize.Small,
   });
 
 //<editor-fold desc="Data Methods">
@@ -25,6 +27,7 @@ class ListItemState {
     required this.selectedMonth,
     required this.total,
     required this.loadStatus,
+    required this.screenSize,
   });
 
   @override
@@ -37,7 +40,8 @@ class ListItemState {
           selectedIdx == other.selectedIdx &&
           selectedMonth == other.selectedMonth &&
           total == other.total &&
-          loadStatus == other.loadStatus);
+          loadStatus == other.loadStatus &&
+          screenSize == other.screenSize);
 
   @override
   int get hashCode =>
@@ -46,7 +50,8 @@ class ListItemState {
       selectedIdx.hashCode ^
       selectedMonth.hashCode ^
       total.hashCode ^
-      loadStatus.hashCode;
+      loadStatus.hashCode ^
+      screenSize.hashCode;
 
   @override
   String toString() {
@@ -57,6 +62,7 @@ class ListItemState {
         ' selectedMonth: $selectedMonth,' +
         ' total: $total,' +
         ' loadStatus: $loadStatus,' +
+        ' screenSize: $screenSize,' +
         '}';
   }
 
@@ -67,6 +73,7 @@ class ListItemState {
     int? selectedMonth,
     double? total,
     LoadStatus? loadStatus,
+    ScreenSize? screenSize,
   }) {
     return ListItemState(
       trans: trans ?? this.trans,
@@ -75,6 +82,7 @@ class ListItemState {
       selectedMonth: selectedMonth ?? this.selectedMonth,
       total: total ?? this.total,
       loadStatus: loadStatus ?? this.loadStatus,
+      screenSize: screenSize ?? this.screenSize,
     );
   }
 
@@ -86,6 +94,7 @@ class ListItemState {
       'selectedMonth': this.selectedMonth,
       'total': this.total,
       'loadStatus': this.loadStatus,
+      'screenSize': this.screenSize,
     };
   }
 
@@ -97,6 +106,7 @@ class ListItemState {
       selectedMonth: map['selectedMonth'] as int,
       total: map['total'] as double,
       loadStatus: map['loadStatus'] as LoadStatus,
+      screenSize: map['screenSize'] as ScreenSize,
     );
   }
 

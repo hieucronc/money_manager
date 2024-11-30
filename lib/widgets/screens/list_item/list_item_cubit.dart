@@ -1,7 +1,10 @@
+import 'dart:html';
+
 import 'package:bloc/bloc.dart';
 import 'package:meta/meta.dart';
 import 'package:money_manager/common/enum/load_status.dart';
 
+import '../../../common/enum/screen_size.dart';
 import '../../../models/transaction.dart';
 import '../../../repositories/api.dart';
 
@@ -39,5 +42,8 @@ class ListItemCubit extends Cubit<ListItemState> {
     } catch (ex) {
       emit(state.copyWith(loadStatus: LoadStatus.Error));
     }
+  }
+  void setScreenSize(ScreenSize screenSize) {
+    emit(state.copyWith(screenSize: screenSize));
   }
 }
