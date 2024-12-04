@@ -1,7 +1,4 @@
-import 'dart:html';
-
 import 'package:bloc/bloc.dart';
-import 'package:meta/meta.dart';
 import 'package:money_manager/common/enum/load_status.dart';
 
 import '../../../common/enum/screen_size.dart';
@@ -39,6 +36,25 @@ class ListItemCubit extends Cubit<ListItemState> {
     emit(state.copyWith(loadStatus: LoadStatus.Loading));
     try {
       await api.deleteTransaction(dateTime);
+      await loadData(state.selectedMonth);
+    } catch (ex) {
+      emit(state.copyWith(loadStatus: LoadStatus.Error));
+    }
+  }
+  void addItem(Transaction transaction) async {
+    emit(state.copyWith(loadStatus: LoadStatus.Loading));
+    try {
+      await api.addTransaction(transaction);
+      await loadData(state.selectedMonth);
+    } catch (ex) {
+      emit(state.copyWith(loadStatus: LoadStatus.Error));
+    }
+  }
+
+  void editItem(Transaction transaction) async {
+    emit(state.copyWith(loadStatus: LoadStatus.Loading));
+    try {
+      await api.editTransaction(transaction);
       await loadData(state.selectedMonth);
     } catch (ex) {
       emit(state.copyWith(loadStatus: LoadStatus.Error));

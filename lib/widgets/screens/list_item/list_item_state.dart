@@ -12,8 +12,8 @@ class ListItemState {
   const ListItemState.init({
     this.trans = const [],
     this.months = const [],
-    this.selectedIdx = -1,
-    this.selectedMonth = -1,
+    this.selectedIdx = 0,
+    this.selectedMonth = 0,
     this.total = 0,
     this.loadStatus = LoadStatus.Init,
     this.screenSize = ScreenSize.Small,
