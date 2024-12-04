@@ -122,21 +122,27 @@ class ListItemPage extends StatelessWidget {
                 return Card(
                   margin: EdgeInsets.fromLTRB(16, 16, 16, 0),
                   child: ListTile(
-                    leading: item.amount > 0
-                        ? Icon(Icons.add, color: Colors.green)
-                        : Icon(Icons.remove, color: Colors.red),
-                    title: Row(children: [
-                      Expanded(child: Text(item.title)),
-                      Text("${item.amount}")
-                    ]),
-                    subtitle: Text(item.content),
-                    trailing: IconButton(
-                      icon: Icon(Icons.delete),
-                      onPressed: () {
-                        cubit.deleteItem(item.dateTime);
-                      },
-                    ),
-                  ),
+                      leading: item.amount > 0
+                          ? Icon(Icons.add, color: Colors.green)
+                          : Icon(Icons.remove, color: Colors.red),
+                      title: Row(children: [
+                        Expanded(child: Text(item.title)),
+                        Text("${item.amount}")
+                      ]),
+                      subtitle: Text(item.content),
+                      trailing: IconButton(
+                        icon: Icon(Icons.delete),
+                        onPressed: () {
+                          cubit.deleteItem(item.dateTime);
+                        },
+                      ),
+                      onTap: () {
+                        cubit.setSelectedIdx(index);
+                        if (state.screenSize == ScreenSize.Small) {
+                          Navigator.of(context).pushNamed(DetailScreen.route,
+                              arguments: {'cubit': cubit});
+                        }
+                      }),
                 );
               },
               itemCount: state.trans.length,

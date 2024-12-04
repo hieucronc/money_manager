@@ -16,13 +16,13 @@ class ListItemCubit extends Cubit<ListItemState> {
   ListItemCubit(this.api) : super(ListItemState.init());
 
   Future<void> loadData(int monthIdx) async {
-    emit(state.copyWith(loadStatus: LoadStatus.Loading, selectedMonth: monthIdx));
+    emit(state.copyWith(
+        loadStatus: LoadStatus.Loading, selectedMonth: monthIdx));
     try {
       var months = await api.getMonths();
       var total = await api.getTotal();
-      List<Transaction> trans = months.isEmpty
-          ? []
-          : await api.getTransactions(months[monthIdx]);
+      List<Transaction> trans =
+          months.isEmpty ? [] : await api.getTransactions(months[monthIdx]);
 
       emit(state.copyWith(
         months: months,
@@ -34,16 +34,22 @@ class ListItemCubit extends Cubit<ListItemState> {
       emit(state.copyWith(loadStatus: LoadStatus.Error));
     }
   }
+
   void deleteItem(String dateTime) async {
     emit(state.copyWith(loadStatus: LoadStatus.Loading));
     try {
-    await api.deleteTransaction(dateTime);
-    await loadData(state.selectedMonth);
+      await api.deleteTransaction(dateTime);
+      await loadData(state.selectedMonth);
     } catch (ex) {
       emit(state.copyWith(loadStatus: LoadStatus.Error));
     }
   }
+
   void setScreenSize(ScreenSize screenSize) {
     emit(state.copyWith(screenSize: screenSize));
+  }
+
+  void setSelectedIdx(int selectedIdx) {
+    emit(state.copyWith(selectedIdx: selectedIdx));
   }
 }
