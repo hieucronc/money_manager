@@ -37,11 +37,43 @@ class AddEditScreen extends StatelessWidget {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  TextField(controller: _title),
+                  TextField(
+                    controller: _title,
+                    decoration: InputDecoration(
+                      labelText: 'Title',
+                      hintText: 'Enter the title of the transaction',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
                   SizedBox(height: 16),
-                  TextField(controller: _content),
+                  TextField(
+                    controller: _content,
+                    decoration: InputDecoration(
+                      labelText: 'Content',
+                      hintText: 'Enter the content of the transaction',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
                   SizedBox(height: 16),
-                  TextField(controller: _amount),
+                  TextField(
+                    controller: _amount,
+                    keyboardType:
+                        TextInputType.numberWithOptions(decimal: true),
+                    decoration: InputDecoration(
+                      labelText: 'Amount',
+                      hintText: 'Enter the amount',
+                      border: OutlineInputBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      contentPadding: EdgeInsets.all(10),
+                    ),
+                  ),
                   SizedBox(height: 16),
                   ElevatedButton(
                       onPressed: () {
@@ -51,11 +83,12 @@ class AddEditScreen extends StatelessWidget {
                               title: _title.text,
                               content: _content.text,
                               amount: double.parse(_amount.text)));
-                          Navigator.of(context).popUntil(ModalRoute.withName(ListItemScreen.route));
-
+                          Navigator.of(context).popUntil(
+                              ModalRoute.withName(ListItemScreen.route));
                         } else {
                           _cubit.addItem(Transaction(
-                              dateTime: DateTime.now().toString().substring(0,19),
+                              dateTime:
+                                  DateTime.now().toString().substring(0, 19),
                               title: _title.text,
                               content: _content.text,
                               amount: double.parse(_amount.text)));
