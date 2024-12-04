@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:money_manager/widgets/screens/list_item/list_item_screen.dart';
 
 import '../../../common/enum/drawer_item.dart';
 import '../../../main_cubit.dart';
@@ -29,6 +30,8 @@ class Page extends StatelessWidget {
                       : null,
                   onTap: () {
                     context.read<MainCubit>().setSelected(DrawerItem.Home);
+                    Navigator.of(context)
+                        .popUntil(ModalRoute.withName(ListItemScreen.route));
                   }),
               ListTile(
                   title: Text("Setting"),

@@ -51,14 +51,16 @@ class AddEditScreen extends StatelessWidget {
                               title: _title.text,
                               content: _content.text,
                               amount: double.parse(_amount.text)));
+                          Navigator.of(context).popUntil(ModalRoute.withName(ListItemScreen.route));
+
                         } else {
                           _cubit.addItem(Transaction(
                               dateTime: DateTime.now().toString().substring(0,19),
                               title: _title.text,
                               content: _content.text,
                               amount: double.parse(_amount.text)));
+                          pop(context);
                         }
-                        pop(context);
                       },
                       child: Text("Save"))
                 ],
